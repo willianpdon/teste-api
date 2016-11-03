@@ -75,4 +75,24 @@
 	 	<property name="maxUploadSize" value="10000000" />
 	</bean>
 	
+	<beans>
+	    <!-- Indica quais pacotes o Spring deve escanear em busca de componentes -->
+	    <context:component-scan base-package="teste.api" />
+	 
+	    <!-- Permite ao spring identificar classe anotadas com @Controller -->
+	    <mvc:annotation-driven enable-matrix-variables="true" />
+	 
+	    <!-- Habilita o swagger ui -->
+	   <mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/" />
+	    <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
+	 
+	    <!-- Inclui uma configuração personalizada do swagger-->
+	    <bean name="swagger2DocumentationConfiguration" class="springfox.documentation.swagger2.configuration.Swagger2DocumentationConfiguration" />
+	    
+	    <!-- Bean para alterar as informações gerais da API. -->
+	   <bean name="applicationSwaggerConfig" class="teste.api.configuracao.ApplicationSwaggerConfig"/>
+	   
+	   
+	</beans>
+	
 </beans>
