@@ -38,9 +38,15 @@ Para realizar uma compra primeiro deve ser inserido um produdo através do endpo
 Não foi criado nenhuma interface para testar os serviços, mas pode ser testado através da ferramenta POSTMAN do google chrome, basta fazer o download através do link https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop, assim que abrir o POSTMAN segue o passo a passo:
 
 
-- Fazer download do arquivo dentro do projeto URL:
+- Fazer download do arquivo dentro do projeto URL: https://github.com/willianpdon/teste-api/blob/master/arquivos/teste-api-collections.json
 - Importar o arquivo (COLLECTIONS) no POSTMAN.
 - Depois desses procedimentos, seu POSTMAN já estará com todas as chamadas da API para começar os testes.
+
+
+#Modelo Banco de Dados
+
+
+![A photo of the Metamaquina2Beta 3d printer](https://github.com/willianpdon/teste-api/blob/master/arquivos/MODELO_BANCO_DADOS.png?raw=true)
 
 
 
