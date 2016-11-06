@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import teste.api.domain.Compra;
 import teste.api.domain.Item;
 import teste.api.domain.Produto;
+import teste.api.exception.TesteApiException;
 import teste.api.repository.CompraRepository;
 import teste.api.repository.ItemRepository;
 import teste.api.repository.ProdutoRepository;
@@ -29,9 +30,8 @@ public class CompraServiceImpl implements CompraService {
     private ProdutoRepository produtoRepository;
     
     @Override
-    public Compra salvar(Compra compra) {
+    public Compra salvar(Compra compra) throws TesteApiException {
     	
-    	try {
 			
     	compra.setData(new Date());
     	
@@ -43,8 +43,15 @@ public class CompraServiceImpl implements CompraService {
     	compra = this.compraRepository.salvar(compra);
     	
     	BigDecimal valorTotal = new BigDecimal(0);
+    	
     	for (Item item : itensCru) {
+    	
     		Produto produto = produtoRepository.buscarPorId(item.getProduto().getId());
+    		
+    		if (produto == null) {
+    			throw new TesteApiException("Produto id: " + item.getProduto().getId() + " não cadastrado");
+    		}
+    		
     		valorTotal = valorTotal.add(produto.getValor().multiply(new BigDecimal(item.getQuantidade())));
     		item.setCompra(compra);
 			itens.add(this.itemRepository.salvar(item));
@@ -53,12 +60,7 @@ public class CompraServiceImpl implements CompraService {
     	compra.setValorTotal(valorTotal);
     	compra.setItens(itens);
     	
-        compra = this.compraRepository.salvar(compra);
-        
-    	} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return compra;
+		return this.compraRepository.salvar(compra);
     }
 
     @Override
@@ -72,7 +74,7 @@ public class CompraServiceImpl implements CompraService {
     }
 
 	@Override
-	public void deletar(Long id) {
+	public void deletar(Long id) throws TesteApiException {
 		this.compraRepository.deletar(id);
 	}
 

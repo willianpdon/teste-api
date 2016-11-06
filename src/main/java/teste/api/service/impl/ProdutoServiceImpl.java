@@ -16,10 +16,6 @@ public class ProdutoServiceImpl implements ProdutoService {
     @Autowired
     private ProdutoRepository produtoRepository; 
     
-    public ProdutoServiceImpl() {
-
-    }
-    
     @Override
     public Produto salvar(Produto produto) throws TesteApiException {
     		
@@ -35,11 +31,7 @@ public class ProdutoServiceImpl implements ProdutoService {
 			throw new TesteApiException("descrção não pode ser null");
 		}
 		
-		produto = this.produtoRepository.salvar(produto);
-    		
-    		
-    	
-        return produto;
+        return this.produtoRepository.salvar(produto);
     }
 
     @Override
@@ -53,7 +45,7 @@ public class ProdutoServiceImpl implements ProdutoService {
     }
 
 	@Override
-	public void deletar(Long id) {
+	public void deletar(Long id) throws TesteApiException {
 		this.produtoRepository.deletar(id);
 	}
 

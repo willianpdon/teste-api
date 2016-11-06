@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 
+import teste.api.exception.TesteApiException;
 import teste.api.service.CompraService;
 import teste.api.to.CompraTO;
 
@@ -39,13 +40,13 @@ public class CompraController {
 	
 	@ApiOperation(value="Cria um novo compra.", notes="Inserção síncrona.")
 	@RequestMapping(value="/compra/salvar", method = RequestMethod.POST, produces={"application/json"})
-	public CompraTO salvarCompra(@RequestBody CompraTO compraTO) throws ParseException {
+	public CompraTO salvarCompra(@RequestBody CompraTO compraTO) throws TesteApiException, ParseException {
 	    return new CompraTO(this.compraService.salvar(compraTO.criaCompra()));
 	}
 
 	@ApiOperation(value="Deleta um compra no sistema", notes="Exclusão síncrona.")
 	@RequestMapping(value="/compra/deletar/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity detelarCompra(@PathVariable Long id) {
+	public ResponseEntity detelarCompra(@PathVariable Long id) throws TesteApiException {
 	    this.compraService.deletar(id);
 	    return ResponseEntity.status(HttpStatus.OK).body("Exclusão executada com sucesso! Id=" + id);
 	}

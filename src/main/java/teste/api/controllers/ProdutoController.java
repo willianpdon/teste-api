@@ -45,7 +45,7 @@ public class ProdutoController {
 
 	@ApiOperation(value="Deleta um produto no sistema", notes="Exclusão síncrona.")
 	@RequestMapping(value="/produto/deletar/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity detelarProduto(@PathVariable Long id) {
+	public ResponseEntity detelarProduto(@PathVariable Long id) throws TesteApiException {
 	    this.produtoService.deletar(id);
 	    return ResponseEntity.status(HttpStatus.OK).body("Exclusão executada com sucesso! Id=" + id);
 	}

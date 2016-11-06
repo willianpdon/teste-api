@@ -16,12 +16,12 @@ public class ApplicationSwaggerConfig {
     private ApiInfo apiInfo() {
         ApiInfo apiInfo = new ApiInfo(
                 "Teste API",
-                "Documentação para realizar uma compra online de cerveja",
+                "Modelagem da serviço rest teste-api",
                 "Versão API 1.0",
                 "Termos de uso",
                 "willianpdon@gmail.com",
-                "API License",
-                "API License URL"
+                "",
+                ""
                 );
         return apiInfo;
     }

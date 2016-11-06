@@ -13,6 +13,6 @@ public interface ProdutoService {
 	
 	List<Produto> buscarTodos();
 	
-	void deletar(Long id);
+	void deletar(Long id) throws TesteApiException;
 	
 }
