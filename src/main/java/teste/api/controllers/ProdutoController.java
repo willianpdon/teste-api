@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 
+import teste.api.exception.TesteApiException;
 import teste.api.service.ProdutoService;
 import teste.api.to.ProdutoTO;
 
@@ -26,8 +27,8 @@ public class ProdutoController {
 	
 	@ApiOperation(value="Consulta um produto no sistema", notes="Consulta síncrona.")
 	@RequestMapping(value="/produto/{id}")
-	public ProdutoTO getProduto(@PathVariable Long id) {
-	    return new ProdutoTO(this.produtoService.buscarPorId(id));
+	public ProdutoTO getProduto(@PathVariable Long id) throws TesteApiException {
+		return new ProdutoTO(this.produtoService.buscarPorId(id));
 	}
 
 	@ApiOperation(value="Consulta todos produtos do sistema", notes="Consulta síncrona.")
@@ -37,10 +38,9 @@ public class ProdutoController {
 	}
 	
 	@ApiOperation(value="Cria um novo produto.", notes="Inserção síncrona.")
-	@RequestMapping(value="produto/salvar", method = RequestMethod.POST, produces={"application/json"})
-	public ProdutoTO salvarProduto(@RequestBody ProdutoTO produtoTO) {
-	    this.produtoService.salvar(produtoTO.criaProduto());
-	    return produtoTO;
+	@RequestMapping(value="/produto/salvar", method = RequestMethod.POST, produces={"application/json"})
+	public ProdutoTO salvarProduto(@RequestBody ProdutoTO produtoTO) throws TesteApiException {
+	    return new ProdutoTO(this.produtoService.salvar(produtoTO.criaProduto()));
 	}
 
 	@ApiOperation(value="Deleta um produto no sistema", notes="Exclusão síncrona.")

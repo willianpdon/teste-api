@@ -68,5 +68,19 @@ public class Item implements Domain {
 		this.compra = compra;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Item [id=");
+		builder.append(id);
+		builder.append(", quantidade=");
+		builder.append(quantidade);
+		builder.append(", produto=");
+		builder.append(produto);
+		builder.append(", compra=");
+		builder.append(compra);
+		builder.append("]");
+		return builder.toString();
+	}
 	
 }

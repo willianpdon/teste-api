@@ -89,5 +89,22 @@ public class Compra implements Domain {
 	public Date getData() {
 		return data;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Compra [id=");
+		builder.append(id);
+		builder.append(", data=");
+		builder.append(data);
+		builder.append(", valorTotal=");
+		builder.append(valorTotal);
+		builder.append(", tipoPagamento=");
+		builder.append(tipoPagamento);
+		builder.append(", itens=");
+		builder.append(itens);
+		builder.append("]");
+		return builder.toString();
+	}
 	
 }
