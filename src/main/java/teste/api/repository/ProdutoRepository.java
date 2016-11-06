@@ -12,4 +12,7 @@ public interface ProdutoRepository {
 	
 	List<Produto> buscarTodos();
 	
+	void deletar(Long id);
+	
+	
 }

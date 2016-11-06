@@ -1,6 +1,5 @@
 package teste.api.controllers;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 
-import teste.api.repository.ProdutoRepository;
+import teste.api.service.ProdutoService;
 import teste.api.to.ProdutoTO;
 
 @Api(value="Produto")
@@ -23,38 +22,31 @@ import teste.api.to.ProdutoTO;
 public class ProdutoController {
 
 	@Autowired
-	private ProdutoRepository produtoRepository;
+	private ProdutoService produtoService;
 	
 	@ApiOperation(value="Consulta um produto no sistema", notes="Consulta síncrona.")
 	@RequestMapping(value="/produto/{id}")
 	public ProdutoTO getProduto(@PathVariable Long id) {
-	
-	    
-	    //return this.produtoRepository.buscarPorId(id);
-	    return new ProdutoTO();
+	    return new ProdutoTO(this.produtoService.buscarPorId(id));
 	}
 
 	@ApiOperation(value="Consulta todos produtos do sistema", notes="Consulta síncrona.")
 	@RequestMapping(value="/produtos")
 	public List<ProdutoTO> getProdutos() {
-		//return this.produtoRepository.buscarTodos();
-	    
-	    return Arrays.asList(new ProdutoTO());
+	    return new ProdutoTO().criaProdutos(this.produtoService.buscarTodos());
 	}
 	
 	@ApiOperation(value="Cria um novo produto.", notes="Inserção síncrona.")
 	@RequestMapping(value="produto/salvar", method = RequestMethod.POST, produces={"application/json"})
-	public ProdutoTO criaProduto(@RequestBody ProdutoTO produto) {
-	    this.produtoRepository.salvar(produto.criaProduto());
-	    return produto;
+	public ProdutoTO salvarProduto(@RequestBody ProdutoTO produtoTO) {
+	    this.produtoService.salvar(produtoTO.criaProduto());
+	    return produtoTO;
 	}
 
 	@ApiOperation(value="Deleta um produto no sistema", notes="Exclusão síncrona.")
 	@RequestMapping(value="/produto/deletar/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity detelarProduto(@PathVariable Long id) {
-	
-	    
-	    //return this.produtoRepository.buscarPorId(id);
+	    this.produtoService.deletar(id);
 	    return ResponseEntity.status(HttpStatus.OK).body("Exclusão executada com sucesso! Id=" + id);
 	}
 }

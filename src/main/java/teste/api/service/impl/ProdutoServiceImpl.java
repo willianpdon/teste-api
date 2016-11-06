@@ -34,4 +34,9 @@ public class ProdutoServiceImpl implements ProdutoService {
         return this.produtoRepository.buscarTodos();
     }
 
+	@Override
+	public void deletar(Long id) {
+		this.produtoRepository.deletar(id);
+	}
+
 }

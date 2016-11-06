@@ -1,13 +1,20 @@
 package teste.api.domain;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -26,15 +33,19 @@ public class Compra implements Domain {
 	private Long id;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "DATA_HORA")
-	private Date dataHora;
+	@Column(name = "DATA")
+	private Date data;
 	
-	@Column(name = "DESCRICAO", length = 1000)
-	private String descricao;
-	
-	@Column(name = "PRECO_PRODUTO")
-	private BigDecimal precoProduto;
+	@Column(name = "VALOR_TOTAL")
+	private BigDecimal valorTotal;
 
+	@Column(name = "TIPO_PAGAMENTO")
+	@Enumerated(EnumType.STRING)
+	private TipoPagamento tipoPagamento;
+	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "compra", cascade=CascadeType.PERSIST)
+	private List<Item> itens = new ArrayList<Item>();
+	
 	public Long getId() {
 		return id;
 	}
@@ -44,28 +55,39 @@ public class Compra implements Domain {
 	}
 
 	public Date getDataHora() {
-		return dataHora;
+		return data;
 	}
 
-	public void setDataHora(Date dataHora) {
-		this.dataHora = dataHora;
+	public void setData(Date data) {
+		this.data = data;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public BigDecimal getValorTotal() {
+		return valorTotal;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setValorTotal(BigDecimal valorTotal) {
+		this.valorTotal = valorTotal;
 	}
 
-	public BigDecimal getPrecoProduto() {
-		return precoProduto;
+	public TipoPagamento getTipoPagamento() {
+		return tipoPagamento;
 	}
 
-	public void setPrecoProduto(BigDecimal precoProduto) {
-		this.precoProduto = precoProduto;
+	public void setTipoPagamento(TipoPagamento tipoPagamento) {
+		this.tipoPagamento = tipoPagamento;
 	}
 
+	public List<Item> getItens() {
+		return itens;
+	}
+
+	public void setItens(List<Item> itens) {
+		this.itens = itens;
+	}
+
+	public Date getData() {
+		return data;
+	}
 	
 }

@@ -1,6 +1,8 @@
 package teste.api.to;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.wordnik.swagger.annotations.ApiModel;
 import com.wordnik.swagger.annotations.ApiModelProperty;
@@ -22,13 +24,15 @@ public class ProdutoTO  {
 	@ApiModelProperty(value = "Valor do produto.")
 	private BigDecimal valor;
 	
-	public Produto criaProduto(){
-	    Produto produto = new Produto();
-	    produto.setId(this.getId());
-	    produto.setDescricao(this.getDescricao());
-	    produto.setNome(this.getNome());
-	    produto.setValor(this.getValor());
-	    return produto;
+	public ProdutoTO() {
+		
+	}
+	
+	public ProdutoTO(Produto produto) {
+		this.setId(produto.getId());
+		this.setDescricao(produto.getDescricao());
+		this.setNome(produto.getNome());
+		this.setValor(produto.getValor());
 	}
 	
 	public Long getId() {
@@ -61,6 +65,30 @@ public class ProdutoTO  {
 
 	public void setValor(BigDecimal valor) {
 		this.valor = valor;
+	}
+
+	public List<ProdutoTO> criaProdutos(List<Produto> produtos) {
+		
+		List<ProdutoTO> produtosTo = new ArrayList<>();
+		
+		if (produtos != null && !produtos.isEmpty()) {
+		
+			for (Produto produto : produtos) {
+				produtosTo.add(new ProdutoTO(produto));
+			}
+			
+		}
+		
+		return produtosTo;
+	}
+
+	public Produto criaProduto() {
+	    Produto produto = new Produto();
+	    produto.setId(this.getId());
+	    produto.setDescricao(this.getDescricao());
+	    produto.setNome(this.getNome());
+	    produto.setValor(this.getValor());
+	    return produto;
 	}
 
 }
